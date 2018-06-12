@@ -130,10 +130,12 @@ public class Controller {
             }
         });
 
+        //set enabled of the menu items
         notepad.getMnEdit().addMenuListener(new MenuListener() {
             @Override
             public void menuSelected(MenuEvent e) {
                 {
+                    //check the text whether is empty or not to set enable
                     if (notepad.getTxtaMain().getText().length() == 0) {
                         notepad.getMniUndo().setEnabled(false);
                         notepad.getMniFind().setEnabled(false);
@@ -149,6 +151,7 @@ public class Controller {
                         notepad.getMniSelectAll().setEnabled(true);
                         notepad.getMniGoTo().setEnabled(true);
                     }
+                    //check the selection area to set enable of method cut, copy, delete
                     if (notepad.getTxtaMain().getSelectionStart() == notepad.getTxtaMain().getSelectionEnd()) {
                         notepad.getMniCut().setEnabled(false);
                         notepad.getMniCopy().setEnabled(false);
@@ -158,6 +161,7 @@ public class Controller {
                         notepad.getMniCopy().setEnabled(true);
                         notepad.getMniDelete().setEnabled(true);
                     }
+                    //check the stack whether has any item or not
                     if (saveUndoStep.isEmpty()) {
                         notepad.getMniRedo().setEnabled(false);
                     } else {
@@ -180,7 +184,23 @@ public class Controller {
         actionPerformed();
 
     }
-
+    
+    //Go to method: move the poiter to any line number
+    public void goTo() {
+        int lineNumber = 0;
+        try {
+            lineNumber = notepad.getTxtaMain().getLineOfOffset(notepad.getTxtaMain().getCaretPosition()) + 1;
+            String tempStr = JOptionPane.showInputDialog(notepad, "Enter Line Number:", "" + lineNumber);
+            if (tempStr == null) {
+                return;
+            }
+            lineNumber = Integer.parseInt(tempStr);
+            notepad.getTxtaMain().setCaretPosition(notepad.getTxtaMain().getLineStartOffset(lineNumber - 1));
+        } catch (Exception e) {
+        }
+    }
+ 
+    //<editor-fold defaultstate="collapsed" desc=" Handle background and foreground color ">
     JColorChooser bcolorChooser = null;
     JDialog backgroundDialog = null;
 
@@ -204,7 +224,9 @@ public class Controller {
 
         backgroundDialog.setVisible(true);
     }
-
+    
+    //--------//
+    
     JColorChooser fcolorChooser = null;
     JDialog foregroundDialog = null;
 
@@ -226,22 +248,9 @@ public class Controller {
         }
 
         foregroundDialog.setVisible(true);
-    }
-
-    public void goTo() {
-        int lineNumber = 0;
-        try {
-            lineNumber = notepad.getTxtaMain().getLineOfOffset(notepad.getTxtaMain().getCaretPosition()) + 1;
-            String tempStr = JOptionPane.showInputDialog(notepad, "Enter Line Number:", "" + lineNumber);
-            if (tempStr == null) {
-                return;
-            }
-            lineNumber = Integer.parseInt(tempStr);
-            notepad.getTxtaMain().setCaretPosition(notepad.getTxtaMain().getLineStartOffset(lineNumber - 1));
-        } catch (Exception e) {
-        }
-    }
-
+    } //</editor-fold>
+   
+    //<editor-fold defaultstate="collapsed" desc=" Handle find, find next method ">
     public void controlFind() {
         findDialog.getBtnFindNext().addActionListener(new ActionListener() {
             @Override
@@ -266,12 +275,10 @@ public class Controller {
     }
 
     private int findNext() {
-
         String textMain = notepad.getTxtaMain().getText();
         String textFind = findDialog.getTxtFindWhat().getText();
 
         int lastIndex = notepad.getTxtaMain().getCaretPosition();
-
         int selStart = notepad.getTxtaMain().getSelectionStart();
         int selEnd = notepad.getTxtaMain().getSelectionEnd();
 
@@ -295,29 +302,9 @@ public class Controller {
             }
         }
         return lastIndex;
-    }
+    }//</editor-fold>
 
-    private int findNextReplace() {
-
-        String textMain = notepad.getTxtaMain().getText();
-        String textFind = replaceDialog.getTxtFindWhat().getText();
-
-        int lastIndex = notepad.getTxtaMain().getCaretPosition();
-
-        int selStart = notepad.getTxtaMain().getSelectionStart();
-        int selEnd = notepad.getTxtaMain().getSelectionEnd();
-
-        if (selStart != selEnd) {
-            lastIndex = selStart + 1;
-        }
-        if (!replaceDialog.getBtnMatchCase().isSelected()) {
-            lastIndex = textMain.toUpperCase().indexOf(textFind.toUpperCase(), lastIndex);
-        } else {
-            lastIndex = textMain.indexOf(textFind, lastIndex);
-        }
-        return lastIndex;
-    }
-
+    //<editor-fold defaultstate="collapsed" desc=" Handle replace method ">
     public void controlReplace() {
         replaceDialog.getBtnFindNext().addActionListener(new ActionListener() {
             @Override
@@ -351,6 +338,26 @@ public class Controller {
                 JOptionPane.showMessageDialog(null, "Total replacements made= " + replaceAll());
             }
         });
+    }
+
+    private int findNextReplace() {
+
+        String textMain = notepad.getTxtaMain().getText();
+        String textFind = replaceDialog.getTxtFindWhat().getText();
+
+        int lastIndex = notepad.getTxtaMain().getCaretPosition();
+        int selStart = notepad.getTxtaMain().getSelectionStart();
+        int selEnd = notepad.getTxtaMain().getSelectionEnd();
+
+        if (selStart != selEnd) {
+            lastIndex = selStart + 1;
+        }
+        if (!replaceDialog.getBtnMatchCase().isSelected()) {
+            lastIndex = textMain.toUpperCase().indexOf(textFind.toUpperCase(), lastIndex);
+        } else {
+            lastIndex = textMain.indexOf(textFind, lastIndex);
+        }
+        return lastIndex;
     }
 
     private void replaceNext() {
@@ -388,13 +395,14 @@ public class Controller {
         } while (index != -1);
         notepad.getTxtaMain().setCaretPosition(savePos);
         return counter;
-    }
+    }//</editor-fold>
 
+    //<editor-fold defaultstate="collapsed" desc=" Initialization the value of font form ">
     FontChooser fontDialog = null;
     String[] fontNames = GraphicsEnvironment
             .getLocalGraphicsEnvironment()
             .getAvailableFontFamilyNames();
-
+    
     public void initValueFont() {
         fontDialog.getListFont().setModel(new DefaultComboBoxModel(fontNames));
         ArrayList<Integer> sizes = new ArrayList<>();
@@ -467,11 +475,10 @@ public class Controller {
                 fontDialog.getTxtaExample().setFont(new Font(fontName, style, size));
             }
         });
+    }//</editor-fold>
 
-    }
-
+    //control font
     public void controlFont() {
-
         fontDialog.getBtnOK().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -488,6 +495,7 @@ public class Controller {
         });
     }
 
+    //listen all activity will happen in the menu bar
     public void actionPerformed() {
         ////////////////////////////////////  
         notepad.getMniNew().addActionListener(new ActionListener() {
@@ -732,6 +740,7 @@ public class Controller {
         });
     }
 
+    //Main :)
     public static void main(String[] args) {
         Controller controller = new Controller();
         controller.control();
