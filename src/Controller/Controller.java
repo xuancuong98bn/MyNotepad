@@ -24,6 +24,7 @@ import javax.swing.event.*;
  */
 public class Controller {
 
+    //<editor-fold defaultstate="collapsed" desc=" Declare the objects will be use in this program ">
     StartForm startNote;
     MainForm notepad;
     FileProcess fileProcess;
@@ -33,7 +34,9 @@ public class Controller {
 
     MyStack saveStep = null;
     MyStack saveUndoStep = null;
+    //</editor-fold>
 
+    //Initialization constructor 
     Controller() {
         startNote = new StartForm();
         startNote.setVisible(true);
@@ -44,10 +47,7 @@ public class Controller {
         controlStart();
     }
 
-    public void StartNote() {
-
-    }
-
+    //handling manipulation of user include NEW, OPEN, ABOUT
     private void controlStart() {
         startNote.getBtnNew().addActionListener(new ActionListener() {
             @Override
@@ -59,7 +59,7 @@ public class Controller {
         startNote.getBtnOpen().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (fileProcess.openFile()){
+                if (fileProcess.openFile()) {
                     startNote.dispose();
                     notepad.setVisible(true);
                 }
@@ -68,20 +68,25 @@ public class Controller {
         startNote.getBtnAbout().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                
+
             }
         });
     }
 
+    //control the activity of notepad 
     public void control() {
+        //listen activity will occur during program running
+        //this action will use for undo, redo method and update the position of pointer
         notepad.getTxtaMain().addCaretListener(new CaretListener() {
             @Override
             public void caretUpdate(CaretEvent e) {
-                if (!notepad.getTxtaMain().getText().equals(saveStep.top()) && !notepad.getTxtaMain().getText().equals("")) {
+                //check text will save into stack
+                if (!notepad.getTxtaMain().getText().equals(saveStep.top())
+                        && !notepad.getTxtaMain().getText().equals("")) {
                     String saveText = notepad.getTxtaMain().getText();
                     saveStep.push(saveText);
-                    System.out.println(saveStep.top());
                 }
+                //update the position of pointer
                 int lineNumber = 0, column = 0, pos = 0;
                 try {
                     pos = notepad.getTxtaMain().getCaretPosition();
@@ -97,6 +102,7 @@ public class Controller {
             }
         });
 
+        //track the change of Text Area and give status saved
         notepad.getTxtaMain().getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void changedUpdate(DocumentEvent e) {
@@ -114,7 +120,9 @@ public class Controller {
             }
         });
 
+        //close program method
         notepad.addWindowListener(new WindowAdapter() {
+            @Override
             public void windowClosing(WindowEvent we) {
                 if (fileProcess.confirmSave()) {
                     System.exit(0);

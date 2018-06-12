@@ -6,6 +6,7 @@
 package GUI;
 
 import java.awt.Image;
+import java.awt.Toolkit;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
@@ -49,14 +50,16 @@ public class StartForm extends javax.swing.JFrame {
         return btnOpen;
     }
     
-    
+    private void setIcon() {
+        setIconImage(Toolkit.getDefaultToolkit().getImage(("./img/Notepad_Icon.png")));
+    }
     
     public StartForm() {
         initComponents();
         btnNew.setIcon(NewIcon());
         btnOpen.setIcon(OpenIcon());
         btnAbout.setIcon(AboutIcon());
-
+        setIcon();
     }
 
     /**
