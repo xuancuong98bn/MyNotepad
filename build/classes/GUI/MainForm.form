@@ -216,9 +216,9 @@
                 <Property name="text" type="java.lang.String" value="Text Color..."/>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="mniBackgroudColor">
+            <MenuItem class="javax.swing.JMenuItem" name="mniBackgroundColor">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Backgroud Color..."/>
+                <Property name="text" type="java.lang.String" value="Background Color..."/>
               </Properties>
             </MenuItem>
           </SubComponents>
@@ -250,7 +250,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mniAbout">
               <Properties>
-                <Property name="text" type="java.lang.String" value="About Notepad"/>
+                <Property name="text" type="java.lang.String" value="About My Notepad"/>
               </Properties>
             </MenuItem>
           </SubComponents>
@@ -259,7 +259,7 @@
     </Menu>
   </NonVisualComponents>
   <Properties>
-    <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="defaultCloseOperation" type="int" value="0"/>
     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
       <Dimension value="[250, 200]"/>
     </Property>

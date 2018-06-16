@@ -86,6 +86,10 @@ public class Controller {
                     String saveText = notepad.getTxtaMain().getText();
                     saveStep.push(saveText);
                 }
+                //check text area empty
+                if (notepad.getTxtaMain().getText().isEmpty() && fileProcess.isNewFileFlag()) {
+                    fileProcess.setSaved(true);
+                }
                 //update the position of pointer
                 int lineNumber = 0, column = 0, pos = 0;
                 try {
@@ -184,7 +188,7 @@ public class Controller {
         actionPerformed();
 
     }
-    
+
     //Go to method: move the poiter to any line number
     public void goTo() {
         int lineNumber = 0;
@@ -199,7 +203,7 @@ public class Controller {
         } catch (Exception e) {
         }
     }
- 
+
     //<editor-fold defaultstate="collapsed" desc=" Handle background and foreground color ">
     JColorChooser bcolorChooser = null;
     JDialog backgroundDialog = null;
@@ -224,9 +228,8 @@ public class Controller {
 
         backgroundDialog.setVisible(true);
     }
-    
+
     //--------//
-    
     JColorChooser fcolorChooser = null;
     JDialog foregroundDialog = null;
 
@@ -249,7 +252,7 @@ public class Controller {
 
         foregroundDialog.setVisible(true);
     } //</editor-fold>
-   
+
     //<editor-fold defaultstate="collapsed" desc=" Handle find, find next method ">
     public void controlFind() {
         findDialog.getBtnFindNext().addActionListener(new ActionListener() {
@@ -306,6 +309,23 @@ public class Controller {
 
     //<editor-fold defaultstate="collapsed" desc=" Handle replace method ">
     public void controlReplace() {
+        replaceDialog.getTxtFindWhat().addCaretListener(new CaretListener() {
+            @Override
+            public void caretUpdate(CaretEvent e) {
+                String findwhat = replaceDialog.getTxtFindWhat().getText();
+                String replacewith = replaceDialog.getTxtReplaceWith().getText();
+
+                if (findwhat.isEmpty()) {
+                    replaceDialog.getBtnFindNext().setEnabled(false);
+                    replaceDialog.getBtnReplace().setEnabled(false);
+                    replaceDialog.getBtnReplaceAll().setEnabled(false);
+                } else {
+                    replaceDialog.getBtnFindNext().setEnabled(true);
+                    replaceDialog.getBtnReplace().setEnabled(true);
+                    replaceDialog.getBtnReplaceAll().setEnabled(true);
+                }
+            }
+        });
         replaceDialog.getBtnFindNext().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -402,7 +422,7 @@ public class Controller {
     String[] fontNames = GraphicsEnvironment
             .getLocalGraphicsEnvironment()
             .getAvailableFontFamilyNames();
-    
+
     public void initValueFont() {
         fontDialog.getListFont().setModel(new DefaultComboBoxModel(fontNames));
         ArrayList<Integer> sizes = new ArrayList<>();
@@ -469,9 +489,16 @@ public class Controller {
         fontDialog.getTxtaExample().addCaretListener(new CaretListener() {
             @Override
             public void caretUpdate(CaretEvent e) {
-                String fontName = fontDialog.getTxtFont().getText();
-                int style = fontDialog.getListFontStyle().getSelectedIndex();
-                int size = Integer.parseInt(fontDialog.getTxtSize().getText());
+                String fontName = "";
+                int style = 0;
+                int size = 12;
+                try {
+                    fontName = fontDialog.getTxtFont().getText();
+                    style = fontDialog.getListFontStyle().getSelectedIndex();
+                    size = Integer.parseInt(fontDialog.getTxtSize().getText());
+                } catch (NumberFormatException nume) {
+                    notepad.getLblStatus().setText("Enter Font invalid! Value change to default.");
+                }
                 fontDialog.getTxtaExample().setFont(new Font(fontName, style, size));
             }
         });
@@ -540,7 +567,7 @@ public class Controller {
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.showMessageDialog(
                         notepad,
-                        "This function will be soon.",
+                        "This function will be coming soon.",
                         "Function developing",
                         JOptionPane.INFORMATION_MESSAGE
                 );
@@ -618,7 +645,7 @@ public class Controller {
                 if (notepad.getTxtaMain().getText().length() == 0) {
                     return; // text box have no text  
                 }
-                if (findDialog.getTxtFindWhat().getText().equals("")) {
+                if (findDialog == null || findDialog.getTxtFindWhat().getText().equals("")) {
                     notepad.getLblStatus().setText("Fill Find option of Edit Menu first !!!!");
                 } else {
                     findDialog.getBtnFindNext().doClick();
@@ -698,7 +725,7 @@ public class Controller {
             }
         });
 
-        notepad.getMniBackgroudColor().addActionListener(new ActionListener() {
+        notepad.getMniBackgroundColor().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 showBackgroundColorDialog();

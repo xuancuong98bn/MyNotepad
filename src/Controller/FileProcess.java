@@ -34,6 +34,14 @@ public class FileProcess {
         this.saved = saved;
     }
 
+    public boolean isNewFileFlag() {
+        return newFileFlag;
+    }
+
+    public void setNewFileFlag(boolean newFileFlag) {
+        this.newFileFlag = newFileFlag;
+    }
+
     public String getFileName() {
         return fileName;
     }
@@ -108,7 +116,7 @@ public class FileProcess {
 
     public void updateStatus(File temp, boolean saved) {
         if (saved) {
-            saved = true;
+            this.saved = true;
             fileName = temp.getName();
             if (!temp.canWrite()) {
                 fileName += "(Read only)";

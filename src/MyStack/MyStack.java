@@ -6,8 +6,6 @@
 package MyStack;
 
 import MyLinkedList.*;
-import java.util.EmptyStackException;
-import java.util.Stack;
 
 /**
  *

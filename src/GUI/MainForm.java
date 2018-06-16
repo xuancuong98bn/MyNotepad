@@ -335,12 +335,12 @@ public class MainForm extends javax.swing.JFrame {
         this.jSeparator1 = jSeparator1;
     }
 
-    public JMenuItem getMniBackgroudColor() {
-        return mniBackgroudColor;
+    public JMenuItem getMniBackgroundColor() {
+        return mniBackgroundColor;
     }
 
-    public void setMniBackgroudColor(JMenuItem mniBackgroudColor) {
-        this.mniBackgroudColor = mniBackgroudColor;
+    public void setMniBackgroundColor(JMenuItem mniBackgroundColor) {
+        this.mniBackgroundColor = mniBackgroundColor;
     }
 
     public JMenuItem getMniTextColor() {
@@ -419,7 +419,7 @@ public class MainForm extends javax.swing.JFrame {
         cbxmniWordWrap = new javax.swing.JCheckBoxMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         mniTextColor = new javax.swing.JMenuItem();
-        mniBackgroudColor = new javax.swing.JMenuItem();
+        mniBackgroundColor = new javax.swing.JMenuItem();
         mnView = new javax.swing.JMenu();
         cbxmniStatusBar = new javax.swing.JCheckBoxMenuItem();
         mnHelp = new javax.swing.JMenu();
@@ -427,7 +427,7 @@ public class MainForm extends javax.swing.JFrame {
         sprtHelp = new javax.swing.JPopupMenu.Separator();
         mniAbout = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(250, 200));
 
         txtaMain.setColumns(20);
@@ -543,8 +543,8 @@ public class MainForm extends javax.swing.JFrame {
         mniTextColor.setText("Text Color...");
         mnFormat.add(mniTextColor);
 
-        mniBackgroudColor.setText("Backgroud Color...");
-        mnFormat.add(mniBackgroudColor);
+        mniBackgroundColor.setText("Background Color...");
+        mnFormat.add(mniBackgroundColor);
 
         mnbMain.add(mnFormat);
 
@@ -562,7 +562,7 @@ public class MainForm extends javax.swing.JFrame {
         mnHelp.add(mniViewHelp);
         mnHelp.add(sprtHelp);
 
-        mniAbout.setText("About Notepad");
+        mniAbout.setText("About My Notepad");
         mnHelp.add(mniAbout);
 
         mnbMain.add(mnHelp);
@@ -637,7 +637,7 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JMenu mnView;
     private javax.swing.JMenuBar mnbMain;
     private javax.swing.JMenuItem mniAbout;
-    private javax.swing.JMenuItem mniBackgroudColor;
+    private javax.swing.JMenuItem mniBackgroundColor;
     private javax.swing.JMenuItem mniCopy;
     private javax.swing.JMenuItem mniCut;
     private javax.swing.JMenuItem mniDateTime;

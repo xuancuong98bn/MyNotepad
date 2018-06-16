@@ -82,10 +82,13 @@ public class ReplaceDialog extends javax.swing.JDialog {
         btnMatchCase.setText("Match case");
 
         btnFindNext.setText("Find Next");
+        btnFindNext.setEnabled(false);
 
         btnReplace.setText("Replace");
+        btnReplace.setEnabled(false);
 
         btnReplaceAll.setText("Replace All");
+        btnReplaceAll.setEnabled(false);
 
         btnCancel.setText("Cancel");
 
