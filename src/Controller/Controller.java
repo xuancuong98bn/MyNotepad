@@ -68,7 +68,7 @@ public class Controller {
         startNote.getBtnAbout().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                notepad.getMniAbout().doClick();
             }
         });
     }
@@ -559,6 +559,18 @@ public class Controller {
                 if (fileProcess.confirmSave()) {
                     System.exit(0);
                 }
+            }
+        });
+
+        notepad.getMniPageSetup().addActionListener(new ActionListener()    {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(
+                        notepad,
+                        "This function will be coming soon.",
+                        "Function developing",
+                        JOptionPane.INFORMATION_MESSAGE
+                );
             }
         });
 

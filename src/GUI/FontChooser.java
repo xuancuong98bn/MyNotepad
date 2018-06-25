@@ -98,10 +98,10 @@ public class FontChooser extends javax.swing.JDialog {
 
         listFont.setVisibleRowCount(6);
         listFont.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
-            }
             public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
                 listFontCaretPositionChanged(evt);
+            }
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
         jScrollPane1.setViewportView(listFont);
@@ -113,20 +113,20 @@ public class FontChooser extends javax.swing.JDialog {
         });
         listFontStyle.setVisibleRowCount(6);
         listFontStyle.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
-            }
             public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
                 listFontStyleCaretPositionChanged(evt);
+            }
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
         jScrollPane2.setViewportView(listFontStyle);
 
         listSize.setVisibleRowCount(6);
         listSize.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
-            }
             public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
                 listSizeCaretPositionChanged(evt);
+            }
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
         jScrollPane3.setViewportView(listSize);
@@ -205,6 +205,7 @@ public class FontChooser extends javax.swing.JDialog {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void listFontCaretPositionChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_listFontCaretPositionChanged
